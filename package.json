@@ -1,7 +1,7 @@
 {
-  "name": "romuald",
-  "version": "0.1.0",
-  "description": "A simple flux library (inspired by redux)",
+  "name": "@chloe463/romuald",
+  "version": "0.2.0",
+  "description": "A simple flux library",
   "module": "index.js",
   "scripts": {
     "lint": "tslint \"./src/*.ts\"",
