@@ -2,7 +2,7 @@ import { Action } from './action';
 
 export interface ReducerFunctions {
   [key: string]: (state: any, action: Action) => any;
-};
+}
 
 export function combineReducers(reducers: ReducerFunctions) {
   const keys: Array<string> = Object.keys(reducers);

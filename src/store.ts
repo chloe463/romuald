@@ -1,8 +1,9 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Action } from './action';
 
-export type Reducer<T> = (state: T, action: Action) => T;
+export type Reducer<T> = (state: T, action?: Action) => T;
 
 export class Armory<T> extends BehaviorSubject<T> {
 
@@ -21,6 +22,16 @@ export class Armory<T> extends BehaviorSubject<T> {
   public emit(fn: (state: T) => T) {
     this.state = fn(this.state);
     this.next(this.state);
+  }
+
+  public emitAsync(action: Observable<Reducer<T>>): Observable<Reducer<T>> {
+    action = action.pipe(
+      tap((fn: (state: T) => T) => {
+        this.emit(fn);
+      })
+    );
+    action.subscribe();
+    return action;
   }
 
 }
