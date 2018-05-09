@@ -14,11 +14,11 @@
   "author": "Tsuyoshi HARA <chloe463@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "rxjs": "^5.5.0"
+    "rxjs": "^6.0.0"
   },
   "devDependencies": {
     "@types/rx": "^4.1.1",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.6"
+    "tslint": "^5.10.0",
+    "typescript": "~2.7.2"
   }
 }
