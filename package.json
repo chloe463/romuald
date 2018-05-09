@@ -1,7 +1,7 @@
 {
-  "name": "romuald",
-  "version": "0.1.0",
-  "description": "A simple flux library (inspired by redux)",
+  "name": "@chloe463/romuald",
+  "version": "0.2.0",
+  "description": "A simple flux library",
   "module": "index.js",
   "scripts": {
     "lint": "tslint \"./src/*.ts\"",
@@ -9,13 +9,12 @@
     "build:watch": "tsc --watch -p ./tsconfig.json"
   },
   "keywords": [
-    "flux",
-    "redux"
+    "flux"
   ],
   "author": "Tsuyoshi HARA <chloe463@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "rxjs": "^5.1.1"
+    "rxjs": "^5.5.0"
   },
   "devDependencies": {
     "@types/rx": "^4.1.1",
