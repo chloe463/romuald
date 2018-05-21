@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@angular/core@^6.0.0":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-6.0.2.tgz#d183730d73182a4590a5d71083db45655f210e69"
+  dependencies:
+    tslib "^1.9.0"
+
 "@types/rx-core-binding@*":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/rx-core-binding/-/rx-core-binding-4.0.0.tgz#77c26d8f786140c6e10139bb19bf5363de67a398"
