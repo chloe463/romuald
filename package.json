@@ -1,13 +1,21 @@
 {
   "name": "@chloe463/romuald",
-  "version": "0.3.0-alpha.0",
+  "version": "0.4.0-alpha.0",
   "description": "A simple flux library",
-  "module": "index.js",
+  "main": "./bundles/romuald.umd.js",
+  "module": "./esm5/romuald.js",
+  "es2015": "./esm2015/romuald.js",
+  "typings": "./esm2015/index.d.ts",
   "scripts": {
     "lint": "tslint \"./src/*.ts\"",
     "build": "tsc -p ./tsconfig.json",
     "build:watch": "tsc --watch -p ./tsconfig.json",
-    "changelog": "conventional-changelog --preset angular -i CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog --preset angular -i CHANGELOG.md -s -r 0",
+    "build:esm2015": "tsc -p tsconfig-esm2015.json",
+    "build:fesm2015": "rollup -c rollup-esm2015.conf.js",
+    "build:esm5": "tsc -p tsconfig-esm5.json",
+    "build:fesm5": "rollup -c rollup-esm5.conf.js",
+    "build:umd": "rollup -c rollup-umd.conf.js"
   },
   "keywords": [
     "flux"
@@ -20,6 +28,7 @@
   },
   "devDependencies": {
     "@types/rx": "^4.1.1",
+    "rollup": "^0.59.2",
     "tslint": "^5.10.0",
     "typescript": "~2.7.2"
   }
