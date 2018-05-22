@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "es2015",
+    "target": "es2015",
+    "baseUrl": "./src",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "outDir": "./builds/esm2015",
+    "sourceMap": false
+  },
+  "files": ["./index.ts"]
+}

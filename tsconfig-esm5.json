@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig-esm2015.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./builds/esm5"
+  },
+  "files": ["./index.ts"]
+}
