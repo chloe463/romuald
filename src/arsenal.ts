@@ -11,6 +11,7 @@ export class Arsenal extends BehaviorSubject<any> {
   constructor(public initialState: any, private states: any[]) {
     super(initialState);
     this.state = initialState;
+    this.next(initialState);
   }
 
   public dispatch(action: any): void {
