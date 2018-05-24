@@ -2,7 +2,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { Action } from './action';
-import { STATE_META_KEY, ACTION_META_KEY } from './symbols';
+import {
+  STATE_META_KEY,
+  ACTION_META_KEY,
+  ReducerContext
+} from './symbols';
 
 export class Arsenal extends BehaviorSubject<any> {
 
@@ -19,10 +23,13 @@ export class Arsenal extends BehaviorSubject<any> {
     this.states.forEach(state => {
       const reducer  = state[STATE_META_KEY]['actions'][action.constructor.type]
       const key      = state[STATE_META_KEY]['key'];
-      const getState = () => newState[key];
 
       if (reducer !== undefined) {
-        newState[key] = reducer(action.payload, getState);
+        const context: ReducerContext = {
+          payload: action.payload,
+          getState: () => newState[key]
+        }
+        newState[key] = reducer(context);
       }
 
     });

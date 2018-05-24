@@ -9,3 +9,8 @@ export interface RomualdStateOptions<T> {
   key: string;
   initial: T;
 };
+
+export interface ReducerContext {
+  payload: any;
+  getState: () => any;
+}
