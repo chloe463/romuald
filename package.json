@@ -1,6 +1,6 @@
 {
   "name": "@chloe463/romuald",
-  "version": "0.4.0-alpha.0",
+  "version": "0.4.0-alpha.1",
   "description": "A simple flux library",
   "main": "./bundles/romuald.umd.js",
   "module": "./esm5/romuald.js",
