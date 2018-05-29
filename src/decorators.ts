@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { pluck } from 'rxjs/operators';
+import { pluck, distinctUntilChanged } from 'rxjs/operators';
 import {
   STATE_META_KEY,
   ACTION_META_KEY,
@@ -54,7 +54,10 @@ export function Select(stateKey: string) {
     if (delete(target[propertyKey])) {
       return Object.defineProperty(target, propertyKey, {
         get: function () {
-          return SelectFactory.store.pipe(pluck(...keys));
+          return SelectFactory.store.pipe(
+            pluck(...keys),
+            distinctUntilChanged()
+          );
         },
         enumerable: true,
         configurable: true
