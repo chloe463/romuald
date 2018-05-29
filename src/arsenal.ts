@@ -12,7 +12,7 @@ export class Arsenal extends BehaviorSubject<any> {
 
   public state: any;
 
-  constructor(public initialState: any, private states: any[]) {
+  constructor(public initialState: any, public states: any[]) {
     super(initialState);
     this.state = initialState;
     this.next(initialState);
