@@ -1,8 +1,17 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import {
+  ErrorHandler,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+
+import { Dispatcher } from './dispatcher';
+import { StateStream } from './state-stream';
 import {
   STATE_META_KEY,
   ACTION_META_KEY,
-  RomualdModuleOptions
+  RomualdModuleOptions,
+  INITIAL_STATE_TOKEN,
+  STATES_TOKEN,
 } from './symbols';
 import { Arsenal } from './arsenal';
 import { SelectFactory } from './decorators';
@@ -25,9 +34,15 @@ export class RomualdModule {
     return {
       ngModule: RomualdModule,
       providers: [
-        { provide: Arsenal, useValue: new Arsenal(initialState, options.states) },
-        SelectFactory
+        Arsenal,
+        SelectFactory,
+        Dispatcher,
+        ...options.states,
+        StateStream,
+        { provide: INITIAL_STATE_TOKEN, useValue: initialState },
+        { provide: STATES_TOKEN, useValue: options.states },
       ]
     };
   }
 }
+

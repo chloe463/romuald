@@ -1,48 +1,53 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {
+  ErrorHandler,
+  Inject,
+  NgZone,
+} from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { distinctUntilChanged, pluck, tap } from 'rxjs/operators';
 
-import { Action } from './action';
 import {
   STATE_META_KEY,
   ACTION_META_KEY,
-  ReducerContext
+  ReducerContext,
+  INITIAL_STATE_TOKEN,
+  STATES_TOKEN
 } from './symbols';
+import { Dispatcher } from './dispatcher';
+import { StateStream } from './state-stream';
 
-export class Arsenal extends BehaviorSubject<any> {
+export class Arsenal {
 
-  public state: any;
-
-  constructor(public initialState: any, public states: any[]) {
-    super(initialState);
-    this.state = initialState;
-    this.next(initialState);
+  constructor(
+    private _stateStream: StateStream,
+    private _dispatcher: Dispatcher,
+    @Inject(INITIAL_STATE_TOKEN) public initialState,
+    @Inject(STATES_TOKEN) public states
+  ) {
+    this._stateStream.next(initialState);
   }
 
-  public dispatch(action: any): void {
-    const newState = Object.assign({}, this.getValue());
-    this.states.forEach(state => {
-      const reducer  = state[STATE_META_KEY]['actions'][action.constructor.type]
-      const key      = state[STATE_META_KEY]['key'];
-
-      if (reducer !== undefined) {
-        const context: ReducerContext = {
-          payload: action.payload,
-          getState: () => newState[key]
-        }
-        newState[key] = reducer(context);
-      }
-
-    });
-    this.state = newState;
-    this.next(newState);
+  select(keys: string[]): Observable<any> {
+    return this._stateStream.pipe(
+      pluck(...keys),
+      distinctUntilChanged()
+    );
   }
 
-  public dispatchAsync(observableAction: Observable<any>): Observable<any> {
-    observableAction = observableAction.pipe(
-      tap(action => this.dispatch(action))
-    )
-    observableAction.subscribe();
-    return observableAction;
+  dispatch(action: any): Observable<any> {
+    return this._dispatcher.dispatch(action);
+  }
+
+  dispatchAsync(observableAction: Observable<any>): Observable<any> {
+    return this._dispatcher.dispatchAsync(observableAction);
+  }
+
+  subscribe(fn: any): Subscription {
+    return this._stateStream.subscribe(fn);
+  }
+
+  snapshot(): any {
+    return this._stateStream.getValue();
   }
 
 }

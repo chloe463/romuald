@@ -54,10 +54,7 @@ export function Select(stateKey: string) {
     if (delete(target[propertyKey])) {
       return Object.defineProperty(target, propertyKey, {
         get: function () {
-          return SelectFactory.store.pipe(
-            pluck(...keys),
-            distinctUntilChanged()
-          );
+          return SelectFactory.store.select(keys);
         },
         enumerable: true,
         configurable: true
